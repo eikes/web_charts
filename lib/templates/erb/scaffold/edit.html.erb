@@ -1,0 +1,13 @@
+<div class="page-header">
+  <%%= link_to <%= index_helper %>_path, class: 'btn btn-default' do %>
+    <span class="fa fa-list"></span>
+    Back
+  <%% end %>
+  <%%= link_to @<%= singular_table_name %>, class: 'btn btn-primary' do %>
+    <span class="fa fa-info-circle"></span>
+    Show
+  <%% end %>
+  <h1>Editing <%= human_name %></h1>
+</div>
+
+<%%= render 'form' %>

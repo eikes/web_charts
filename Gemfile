@@ -7,8 +7,9 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
-gem 'graph_tool', '0.0.6'
+gem 'graph_tool', '0.0.7'
 gem 'eikes_scaffolding', '~> 0.0.2'
+gem 'hello_world', '~> 0.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -39,7 +40,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'fabrication'
 end
