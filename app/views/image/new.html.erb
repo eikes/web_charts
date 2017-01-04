@@ -1,7 +1,7 @@
-<%= simple_form_for(:data, url: {:action => 'create_image'}) do |f| %>
-    <%= f.text_field(:subject, class: 'form-control')%>
-    <%= f.select(:file_format, [['PNG', :png], ['SVG', :svg]]) %><br>
-    <%= f.select(:icon_type, [['Circle', :circle], ['Cross', :cross], ['Manikin', :manikin]]) %><br>
-    <%= f.select(:icon_number, (1..100)) %><br>
+<%= simple_form_for(:image_params, url: {:action => 'create_image'}) do |f| %>
+    <%= f.input(:subject)%>
+    <%= f.input(:type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
+    <%= f.input(:icon_type, collection: [['Circle', :circle], ['Cross', :cross], ['Manikin', :manikin]]) %><br>
+    <%= f.input(:data, label: 'Number of Icons', collection: (1..100)) %><br>
     <%= f.submit "Submit" %>
 <% end %>
