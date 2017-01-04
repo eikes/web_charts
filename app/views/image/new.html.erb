@@ -1,8 +1,7 @@
-<%# <%= link_to 'porn porn porn', image_create_image_path, method: :get %1> %> 
-<%= form_for(:data, url: {:action => 'create_image'}) do |f| %>
+<%= simple_form_for(:data, url: {:action => 'create_image'}) do |f| %>
     <%= f.text_field(:subject, class: 'form-control')%>
     <%= f.select(:file_format, [['PNG', :png], ['SVG', :svg]]) %><br>
     <%= f.select(:icon_type, [['Circle', :circle], ['Cross', :cross], ['Manikin', :manikin]]) %><br>
-    <%= f.number_field_tag(:icon_number, 20) %><br>
-    <%= f.button "Submit", type: 'submit'%>
+    <%= f.select(:icon_number, (1..100)) %><br>
+    <%= f.submit "Submit" %>
 <% end %>
