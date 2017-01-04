@@ -1,4 +1,4 @@
-Fabricator(:post) do
+Fabricator(:image) do
   title "MyString"
   body  "MyText"
 end

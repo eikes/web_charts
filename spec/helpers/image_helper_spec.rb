@@ -11,5 +11,24 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe ImageHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let(:valid_params) do 
+    {"image_params" => {"type"=>"svg", "icon_type"=>"circle", "data"=>"9"}}.with_indifferent_access
+  end
+  let(:params_with_values_and_keys_as_strings) do 
+    {"image_params" => {"type"=>"svg", "icon_type"=>"circle", "data"=>"9"}}.with_indifferent_access
+  end
+  describe "graph_options" do
+    it "it converts keys and values of params to symbols" do
+      controller.params = params_with_values_and_keys_as_strings
+      expect(helper.graph_options).to eq({type: :svg, icon_type: :circle})
+    end
+  end
+
+  describe "graph_data" do
+    it "it extracts data from params" do
+      controller.params = valid_params
+      expect(helper.graph_data).to eq(9)
+    end
+  end
 end
