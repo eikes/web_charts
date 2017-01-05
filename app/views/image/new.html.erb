@@ -1,7 +1,17 @@
 <%= simple_form_for(:image_params, url: {:action => 'create_image'}) do |f| %>
-    <%= f.input(:subject)%>
     <%= f.input(:type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
-    <%= f.input(:icon_type, collection: [['Circle', :circle], ['Cross', :cross], ['Manikin', :manikin]]) %><br>
-    <%= f.input(:data, label: 'Number of Icons', collection: (1..100)) %><br>
+    <%= f.input(:style, collection: [
+        ['Circle', :circle], 
+        ['Cross', :cross], 
+        ['Manikin', :manikin], 
+        ['Bar', :bar], 
+        ['Pie', :pie]
+    ], 
+    prompt: true) %><br>
+    <%= f.input(:data, collection: (1..100)) %><br>
+    <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
+    <%= f.input(:item_height, collection: (1..100), prompt: true) %><br>
+    <%= f.input(:item_width, collection: (1..100), prompt: true) %><br>
+    <%= f.input(:width, collection: (1..100), prompt: true) %><br>
     <%= f.submit "Submit" %>
 <% end %>
