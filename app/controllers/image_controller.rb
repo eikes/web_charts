@@ -1,11 +1,11 @@
 class ImageController < ApplicationController
   include ImageHelper
 
-  def new
+  def new 
   end
 
   def create_image
-    image = GraphTool::CircleCountGraph.new([graph_data], graph_options)
+    image = Charts::CircleCountChart.new([graph_data], graph_options)
     if graph_options[:type].eql?(:png)
       send_data image.render, type: 'image/png', disposition: 'inline'
     elsif graph_options[:type].eql?(:svg)
@@ -14,5 +14,4 @@ class ImageController < ApplicationController
       raise
     end
   end
-
 end

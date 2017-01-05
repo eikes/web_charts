@@ -7,7 +7,7 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
-gem 'graph_tool', '0.0.7'
+gem 'charts', '0.0.9'
 gem 'eikes_scaffolding', '~> 0.0.2'
 gem 'hello_world', '~> 0.0.2'
 # Use sqlite3 as the database for Active Record
