@@ -10,8 +10,13 @@ module ImageHelper
   def graph_options
     options = params[:image_params].symbolize_keys
     options.each do |key, value|
-      options[key] = if [:item_height, :item_width, :width].include? key
-                       value.to_i
+      options[key] = if [
+          :item_height, 
+          :item_width, 
+          :width, 
+          :columns
+      ].include? key
+      value.to_i
                      else
                        value.to_sym
                      end

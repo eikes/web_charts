@@ -8,7 +8,8 @@ RSpec.describe ImageHelper, type: :helper do
       'item_width' => '50',
       'item_height' => '70',
       'width' => '1000',
-      'style' => 'circle'
+      'style' => 'circle',
+      'columns' => '20'
     } }.with_indifferent_access
   end
 
@@ -22,21 +23,27 @@ RSpec.describe ImageHelper, type: :helper do
 
     it 'converts keys of params to symbols' do
       controller.params = valid_params
-      expect(helper.graph_options.keys).to eq([:type, :item_width, :item_height, :width])
+      expect(helper.graph_options.keys).to eq([
+        :type, 
+        :item_width, 
+        :item_height, 
+        :width,
+        :columns
+      ])
     end
   end
 
   context 'values' do
     it 'converts numbers packed in strings to integers' do
       controller.params = valid_params
-      expect(helper.graph_options.values).not_to include('50', '70', '1000')
-      expect(helper.graph_options.values).to include(50, 70, 1000)
+      expect(helper.graph_options.values).not_to include('50', '70', '1000', '20')
+      expect(helper.graph_options.values).to include(50, 70, 1000, 20)
     end
 
     it 'converts strings to symbols' do
       controller.params = valid_params
-      expect(helper.graph_options.values).not_to eq(['svg', 50, 70, 1000])
-      expect(helper.graph_options.values).to eq([:svg, 50, 70, 1000])
+      expect(helper.graph_options.values).not_to eq(['svg', 50, 70, 1000, 20])
+      expect(helper.graph_options.values).to eq([:svg, 50, 70, 1000, 20])
     end
   end
 
