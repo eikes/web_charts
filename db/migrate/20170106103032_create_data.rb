@@ -4,7 +4,7 @@ class CreateData < ActiveRecord::Migration
       t.float :value
       t.string :color
       t.string :label
-      t.references :chart_id
+      t.references :chart
 
       t.timestamps null: false
     end

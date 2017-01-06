@@ -9,7 +9,8 @@ class CreateCharts < ActiveRecord::Migration
       t.integer :width
       t.integer :item_height
       t.integer :item_width
-      t.string :type
+      t.string :file_type
+      t.string :style
 
       t.timestamps null: false
     end

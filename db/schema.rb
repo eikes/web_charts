@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106140433) do
+ActiveRecord::Schema.define(version: 20170106110246) do
 
   create_table "charts", force: :cascade do |t|
     t.string   "title"
@@ -23,18 +23,18 @@ ActiveRecord::Schema.define(version: 20170106140433) do
     t.integer  "item_height"
     t.integer  "item_width"
     t.string   "file_type"
+    t.string   "style"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.string   "style"
   end
 
   create_table "data", force: :cascade do |t|
     t.float    "value"
     t.string   "color"
     t.string   "label"
-    t.integer  "chart_id_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "chart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
