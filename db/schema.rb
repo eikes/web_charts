@@ -11,13 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103110348) do
+ActiveRecord::Schema.define(version: 20170106110246) do
 
-  create_table "posts", force: :cascade do |t|
+  create_table "charts", force: :cascade do |t|
     t.string   "title"
-    t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "background_color"
+    t.integer  "columns"
+    t.text     "grouplabels"
+    t.integer  "height"
+    t.integer  "width"
+    t.integer  "item_height"
+    t.integer  "item_width"
+    t.string   "type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "data", force: :cascade do |t|
+    t.float    "value"
+    t.string   "color"
+    t.string   "label"
+    t.integer  "chart_id_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
