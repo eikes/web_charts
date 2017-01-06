@@ -1,5 +1,5 @@
 class ChartsController < ApplicationController
-  include ChartHelper
+  before_action :find_chart, only: [:show]
 
   def new 
     @chart = Chart.new
@@ -14,6 +14,11 @@ class ChartsController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  private
+
   def chart_params
     params.require(:chart).permit(
       :title, 
@@ -27,6 +32,10 @@ class ChartsController < ApplicationController
       :file_type, 
       :style
     )
+  end
+  
+  def find_chart
+    @chart = Chart.find(params[:id])
   end
 
 end

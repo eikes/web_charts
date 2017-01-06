@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   get 'image/new'
 
   root 'charts#new'
-  resources :charts, only: [:new, :create]
+  resources :charts, only: [:new, :create, :show]
 end
