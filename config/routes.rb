@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  post 'image/create_image'
-  get 'image/new'
+  resources :images, only: [:new, :create]
 
   root 'charts#new'
   resources :charts, only: [:new, :create, :show]

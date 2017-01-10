@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ImageController, type: :controller do
+RSpec.describe ImagesController, type: :controller do
   let(:valid_params) do
     { 'image_params' => {
       'data' => '9',
@@ -21,11 +21,11 @@ RSpec.describe ImageController, type: :controller do
   end
   describe 'POST #create_image' do
     it 'returns http success' do
-      post :create_image, valid_params
+      post :create, valid_params
       expect(response).to have_http_status(:success)
     end
     it 'contains svg' do
-      post :create_image, valid_params
+      post :create, valid_params
       expect(response.body).to match(/svg/)
     end
   end

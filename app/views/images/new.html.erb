@@ -1,4 +1,4 @@
-<%= simple_form_for(:image_params, url: {:action => 'create_image'}) do |f| %>
+<%= simple_form_for(:image_params, url: {:action => 'create'}) do |f| %>
     <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
     <%# <%= f.input(:colors, prompt: true) %1><br> %>
     <%= f.input(:columns, collection: (1..100), prompt: true) %><br>

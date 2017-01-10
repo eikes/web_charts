@@ -1,10 +1,10 @@
-class ImageController < ApplicationController
+class ImagesController < ApplicationController
   include ImageHelper
 
   def new 
   end
 
-  def create_image
+  def create
     if graph_style == :circle
       image = Charts::CircleCountChart.new([graph_data], graph_options)
     elsif graph_style == :cross

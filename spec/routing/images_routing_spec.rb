@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe ImageController, type: :routing do
+RSpec.describe ImagesController, type: :routing do
   describe 'routing' do
     it 'routes to #new' do
-      expect(get: '/image/new').to route_to('image#new')
+      expect(get: '/images/new').to route_to('images#new')
     end
 
     it 'routes to #create' do
-      expect(post: '/image/create_image').to route_to('image#create_image')
+      expect(post: '/images/').to route_to('images#create')
     end
   end
 end
