@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :images, only: [:new, :create]
+  get 'data/create_datum'
 
   root 'charts#new'
   resources :charts, only: [:new, :create, :show] do
-    resources :data
+    resources :data, only: :create
   end
 end

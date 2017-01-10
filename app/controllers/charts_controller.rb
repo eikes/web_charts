@@ -8,8 +8,9 @@ class ChartsController < ApplicationController
 
   def create
     @chart = Chart.new(chart_params)
+    datum_params = params[:chart][:datum]
     if @chart.save
-      redirect_to @chart, notice: 'chart successfully created!'
+      redirect_to controller: 'data', action: 'create_datum', datum_params: datum_params
     else
       render 'new'
     end
@@ -51,8 +52,7 @@ class ChartsController < ApplicationController
       :item_height, 
       :item_width, 
       :file_type, 
-      :style,
-      :data_attributes => [:label]
+      :style
     )
   end
 

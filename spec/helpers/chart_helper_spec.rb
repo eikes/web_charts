@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ImageHelper, type: :helper do
+RSpec.describe ChartHelper, type: :helper do
   let(:valid_params) { Fabricate(:chart) }
 
   describe 'processing_chart_options' do
