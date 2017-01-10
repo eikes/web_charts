@@ -51,7 +51,8 @@ class ChartsController < ApplicationController
       :item_height, 
       :item_width, 
       :file_type, 
-      :style
+      :style,
+      :data_attributes => [:label]
     )
   end
 
