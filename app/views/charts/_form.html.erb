@@ -1,0 +1,33 @@
+<%= simple_form_for(@chart) do |f| %>
+    <%= f.simple_fields_for :data do |p| %>
+        <div class="well" >
+            <%= p.input :value %>
+            <%= p.input :label %>
+            <%= p.input :color %>
+        </div>
+    <% end %>
+    </br>
+    </br>
+    </br>
+    <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
+    <%# <%= f.input(:colors, prompt: true) %1><br> %>
+    <%= f.input(:columns, collection: (1..100), prompt: true) %><br>
+    <%# <%= f.input(:filename, prompt: true) %1><br> %>
+    <%# <%= f.input(:grouplabels, prompt: true) %1><br> %>
+    <%# <%= f.input(:height, prompt: true) %1><br> %>
+    <%= f.input(:item_height, prompt: true) %><br>
+    <%= f.input(:item_width, prompt: true) %><br>
+    <%# <%= f.input(:labels, prompt: true) %1><br> %>
+    <%# <%= f.input(:title, prompt: true) %1><br> %>
+    <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
+    <%= f.input(:width, prompt: true) %><br>
+    <%= f.input(:style, collection: [
+        ['Circle', :circle], 
+        ['Cross', :cross], 
+        ['Manikin', :manikin], 
+        ['Bar', :bar], 
+        ['Pie', :pie]
+    ], 
+    prompt: true) %><br>
+    <%= f.submit "Submit" %>
+<% end %>

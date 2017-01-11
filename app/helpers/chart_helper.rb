@@ -11,15 +11,11 @@ module ChartHelper
     options = chart_object.attributes.symbolize_keys
     filtered_options = validate_chart_options(options) 
     filtered_options.each do |key, value|
-      if [:item_height, :item_width, :width, :height, :columns].include? key
-        filtered_options[key] = value.to_i
-      else
-        filtered_options[key] = value.to_sym 
-      end
+      filtered_options[key] = value.to_sym if value.is_a? String
     end
   end
 
-  def validate_chart_options(options)
+  def validate_chart_options(options) # probably useless
     options.select do |key, _value|
       [
         :title,

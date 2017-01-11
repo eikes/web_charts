@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
   include ChartHelper
-  before_action :find_chart, only: [:show]
+  before_action :find_chart, only: [:edit, :update, :show]
 
   def new 
     @chart = Chart.new
@@ -8,16 +8,30 @@ class ChartsController < ApplicationController
 
   def create
     @chart = Chart.new(chart_params)
-    datum_params = params[:chart][:datum]
     if @chart.save
-      redirect_to controller: 'data', action: 'create_datum', datum_params: datum_params
+      redirect_to @chart
     else
       render 'new'
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @chart.update(chart_params)
+      redirect_to @chart
+    else
+      render 'edit'
+    end
+  end
+
   def show
-    graph_data = 55 
+    graph_data_value = @chart.data.value
+
+
+    @belonging_data = Datum.all.select { |datum| datum.chart_id == @chart.id }
+    graph_data = @belonging_data.each_with_object([]) { |data, arr| arr.push data.value }
     graph_options = optimize_options(@chart)
     if @chart.style.to_sym == :circle
       image = Charts::CircleCountChart.new([graph_data], graph_options)
@@ -52,7 +66,8 @@ class ChartsController < ApplicationController
       :item_height, 
       :item_width, 
       :file_type, 
-      :style
+      :style,
+      :data_attributes => [:id, :value, :color, :label]
     )
   end
 
