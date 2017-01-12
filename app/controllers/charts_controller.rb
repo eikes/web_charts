@@ -45,7 +45,7 @@ class ChartsController < ApplicationController
       :item_width,
       :file_type,
       :style,
-      :data_attributes => [:id, :value, :color, :label]
+      :data_attributes => [:id, :value, :color, :label, :_destroy]
     )
   end
 

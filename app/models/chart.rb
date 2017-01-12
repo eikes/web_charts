@@ -1,6 +1,6 @@
 class Chart < ActiveRecord::Base
   has_many :data
-  accepts_nested_attributes_for :data
+  accepts_nested_attributes_for :data, reject_if: :all_blank, allow_destroy: true
 
   def charts_gem_params
     {
