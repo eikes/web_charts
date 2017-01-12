@@ -2,7 +2,7 @@ class ChartsController < ApplicationController
   include ChartHelper
   before_action :find_chart, only: [:edit, :update, :show]
 
-  def new 
+  def new
     @chart = Chart.new
   end
 
@@ -27,29 +27,23 @@ class ChartsController < ApplicationController
   end
 
   def show
-    chart = Charts::Dispatcher.new(@chart.chart_gem_params).chart
-    # if chart.type.eql?(:png)
-    send_data chart.render, type: Mime[chart.type], disposition: 'inline'
-    # elsif chart.type.eql?(:svg)
-    #   render text: chart.render
-    # else
-    #   raise
-    # end
+    charts_gem_chart = Charts::Dispatcher.new(@chart.charts_gem_params).chart
+    send_data charts_gem_chart.render, type: Mime[charts_gem_chart.type], disposition: 'inline'
   end
 
   private
 
   def chart_params
     params.require(:chart).permit(
-      :title, 
-      :background_color, 
-      :columns, 
-      :grouplabels, 
-      :height, 
-      :width, 
-      :item_height, 
-      :item_width, 
-      :file_type, 
+      :title,
+      :background_color,
+      :columns,
+      :grouplabels,
+      :height,
+      :width,
+      :item_height,
+      :item_width,
+      :file_type,
       :style,
       :data_attributes => [:id, :value, :color, :label]
     )
