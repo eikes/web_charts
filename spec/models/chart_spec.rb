@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Chart, type: :model do
-  let!(:chart) { Fabricate(:chart) } 
+  let!(:chart) do 
+    Fabricate(:chart, data: [
+      Fabricate(:datum, value: 1, label: 'fire', color: 'red'), 
+      Fabricate(:datum, value: 2, label: 'see', color: 'blue'), 
+      Fabricate(:datum, value: 3, label: 'grass', color: 'green'), 
+      Fabricate(:datum, value: 4, label: 'sand', color: 'yellow')
+    ])
+  end
 
   describe 'charts_gem_params' do
     it 'creates a new instance of a user given valid attributes' do
@@ -19,9 +26,9 @@ RSpec.describe Chart, type: :model do
         item_width: 50,
         type: :svg,
         style: :circle,
-        colors: ["red", "red", "red", "red"],
-        labels: ["fire", "fire", "fire", "fire"],
-        data: [10.0, 10.0, 10.0, 10.0]
+        colors: ["red", "blue", "green", "yellow"],
+        labels: ["fire", "see", "grass", "sand"],
+        data: [1.0, 2.0, 3.0, 4.0]
       )
     end
   end
