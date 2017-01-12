@@ -11,3 +11,10 @@ Fabricator(:chart) do
   style 'circle'
   data count: 4
 end
+
+Fabricator(:edited_chart, from: :chart) do
+  title 'fabrication_again'
+  background_color 'pink'
+  grouplabels 'Red Green Blue'
+  data count: 2
+end
