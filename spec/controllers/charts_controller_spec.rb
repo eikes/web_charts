@@ -41,10 +41,10 @@ RSpec.describe ChartsController, type: :controller do
         expect(assigns(:chart)).to be_persisted
       end
 
-      # it "redirects to the created chart" do
-      #   post :create, {chart: valid_attributes }, valid_session
-      #   expect(response).to redirect_to(Chart.last)
-      # end
+      it "redirects to the created chart" do
+        post :create, {chart: valid_attributes }, valid_session
+        expect(response).to redirect_to(Chart.last)
+      end
     end
 
     context "with invalid params" do

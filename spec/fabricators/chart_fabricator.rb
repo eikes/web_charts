@@ -2,7 +2,7 @@ Fabricator(:chart) do
   title 'fabrication'
   background_color 'white'
   columns 20
-  grouplabels 'pizza, pasta, spaghetti'
+  grouplabels 'pizza pasta spaghetti'
   height 1000
   width 1000
   item_height 50

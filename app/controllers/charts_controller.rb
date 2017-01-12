@@ -27,30 +27,14 @@ class ChartsController < ApplicationController
   end
 
   def show
-    graph_data_value = @chart.data.value
-
-
-    @belonging_data = Datum.all.select { |datum| datum.chart_id == @chart.id }
-    graph_data = @belonging_data.each_with_object([]) { |data, arr| arr.push data.value }
-    graph_options = optimize_options(@chart)
-    if @chart.style.to_sym == :circle
-      image = Charts::CircleCountChart.new([graph_data], graph_options)
-    elsif @chart.style.to_sym == :cross
-      image = Charts::CrossCountChart.new([graph_data], graph_options)
-    elsif @chart.style.to_sym == :manikin
-      image = Charts::ManikinCountChart.new([graph_data], graph_options)
-    elsif @chart.style.to_sym == :bar
-      image = Charts::BarChart.new([graph_data], graph_options)
-    elsif @chart.style.to_sym == :pie
-      image = Charts::PieChart.new([graph_data], graph_options)
-    end
-    if graph_options[:file_type].eql?(:png)
-      send_data image.render, type: 'image/png', disposition: 'inline'
-    elsif graph_options[:file_type].eql?(:svg)
-      render text: image.render
-    else
-      raise
-    end
+    chart = Charts::Dispatcher.new(@chart.chart_gem_params).chart
+    # if chart.type.eql?(:png)
+    send_data chart.render, type: Mime[chart.type], disposition: 'inline'
+    # elsif chart.type.eql?(:svg)
+    #   render text: chart.render
+    # else
+    #   raise
+    # end
   end
 
   private

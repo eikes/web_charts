@@ -1,18 +1,22 @@
 class Chart < ActiveRecord::Base
   has_many :data
   accepts_nested_attributes_for :data
-  def charts_gem_options
+  def chart_gem_params
     {
       title: title.to_sym,
       background_color: background_color.to_sym,
       columns: columns,
-      grouplabels: grouplabels.to_sym,
+      grouplabels: grouplabels.split,
       height: height,
       width: width,
       item_height: item_height,
       item_width: item_width,
-      file_type: file_type.to_sym,
-      style: style.to_sym
+      type: file_type.to_sym,
+      style: style.to_sym,
+      color: data.map(&:color.to_sym),
+      label: data.map(&:label.to_sym),
+      data: data.map(&:value)
     }
   end
+
 end
