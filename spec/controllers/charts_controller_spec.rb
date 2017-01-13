@@ -16,9 +16,20 @@ RSpec.describe ChartsController, type: :controller do
       get :show, { id: chart.to_param }
       expect(assigns(:chart)).to eq(chart)
     end
-    it "returns svg" do
-      get :show, { id: chart.to_param }
-      expect(response.body).to match(/svg/)
+    context 'svg' do
+      it "returns svg" do
+        get :show, { id: chart.to_param }
+        expect(response.body).to match(/svg/)
+      end
+    end
+    context 'png' do
+      before do
+        chart.update(file_type: 'png')
+      end
+      it "returns svg" do
+        get :show, { id: chart.to_param }
+        expect(response).to be_success
+      end
     end
 
   end
@@ -91,15 +102,15 @@ RSpec.describe ChartsController, type: :controller do
     end
 
     # context "with invalid params" do
-      # it "assigns the chart as @chart" do
-      #   put :update, { id: chart.to_param, chart: invalid_attributes }
-      #   expect(assigns(:chart)).to eq(chart)
-      # end
+    # it "assigns the chart as @chart" do
+    #   put :update, { id: chart.to_param, chart: invalid_attributes }
+    #   expect(assigns(:chart)).to eq(chart)
+    # end
 
-      # it "re-renders the 'edit' template" do
-      #   put :update, { id: chart.to_param, chart: invalid_attributes }
-      #   expect(response).to render_template("edit")
-      # end
+    # it "re-renders the 'edit' template" do
+    #   put :update, { id: chart.to_param, chart: invalid_attributes }
+    #   expect(response).to render_template("edit")
+    # end
     # end
   end
 
