@@ -46,6 +46,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'fabrication'
 end
+group :test do
+  gem 'database_cleaner'
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

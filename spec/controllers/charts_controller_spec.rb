@@ -7,16 +7,17 @@ RSpec.describe ChartsController, type: :controller do
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
   }
-
   describe "GET #index" do
     it 'renders the index-template' do
       get :index
       expect(response).to be_success
     end
-    # it "assigns all charts as @charts" do
-    #   get :index, params: {}, 
-    #   expect(assigns(:charts)).to eq([charts])
-    # end
+    it "assigns all charts as @charts" do
+      (1..5).each { |num| Chart.new(id: num, title: 'fabrication') }      
+      charts = Chart.all
+      get :index
+      expect(assigns(:charts)).to eq(charts)
+    end
   end
 
   describe 'GET #show' do
