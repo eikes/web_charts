@@ -15,7 +15,7 @@ RSpec.describe Chart, type: :model do
       expect(chart).to be_valid
     end
     it 'returns options in right format' do
-      expect(chart.charts_gem_params).to eq(
+      expect(chart.gem_params).to eq(
         title: 'fabrication',
         background_color: 'white',
         columns: 20,
