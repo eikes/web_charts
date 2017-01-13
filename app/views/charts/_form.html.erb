@@ -8,15 +8,16 @@
     </br>
     </br>
     </br>
+    <%= f.input(:title, prompt: true) %><br>
     <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
     <%= f.input(:columns, collection: (1..100), prompt: true) %><br>
     <%= f.input(:grouplabels, prompt: true) %><br>
-    <%= f.input(:height, prompt: true) %><br>
     <%= f.input(:item_height, prompt: true) %><br>
     <%= f.input(:item_width, prompt: true) %><br>
     <%= f.input(:title, prompt: true) %><br>
     <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
     <%= f.input(:width, prompt: true) %><br>
+    <%= f.input(:height, prompt: true) %><br>
     <%= f.input(:style, collection: [
         ['Circle', :circle], 
         ['Cross', :cross], 
