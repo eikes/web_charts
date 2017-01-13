@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
   include ChartHelper
-  before_action :find_chart, only: [:edit, :update, :show]
+  before_action :find_chart, only: [:edit, :update, :show, :destroy]
 
   def index
     @charts = Chart.all
@@ -33,6 +33,11 @@ class ChartsController < ApplicationController
   def show
     charts_gem_chart = Charts::Dispatcher.new(@chart.gem_params).chart
     send_data charts_gem_chart.render, type: Mime[charts_gem_chart.type], disposition: 'inline'
+  end
+
+  def destroy
+    @chart.delete
+    redirect_to charts_path, notice: 'Chart successfully deleted!'
   end
 
   private

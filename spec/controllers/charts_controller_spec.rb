@@ -91,21 +91,22 @@ RSpec.describe ChartsController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
+
       it 'updates the requested chart' do
         put :update, id: chart.to_param, chart: { title: 'fabrication_clone' }
         chart.reload
         expect(chart.title).to eq('fabrication_clone')
       end
 
-      # it "assigns the requested chart as @chart" do
-      #   put :update, { id: chart.to_param, chart: valid_attributes }
-      #   expect(assigns(:chart)).to eq(chart)
-      # end
+      it "assigns the requested chart as @chart" do
+        put :update, { id: chart.to_param, chart: valid_attributes }
+        expect(assigns(:chart)).to eq(chart)
+      end
 
-      # it "redirects to the chart" do
-      #   put :update, { id: chart.to_param, chart: valid_attributes }
-      #   expect(response).to redirect_to(chart)
-      # end
+      it "redirects to the chart" do
+        put :update, { id: chart.to_param, chart: valid_attributes }
+        expect(response).to redirect_to(chart)
+      end
     end
 
     # context "with invalid params" do
@@ -121,16 +122,16 @@ RSpec.describe ChartsController, type: :controller do
     # end
   end
 
-  # describe "DELETE #destroy" do
-  #   it "destroys the requested chart" do
-  #     expect {
-  #       delete :destroy, { id: chart.to_param }
-  #     }.to change(Chart, :count).by(-1)
-  #   end
+  describe "DELETE #destroy" do
+    it "destroys the requested chart" do
+      expect {
+        delete :destroy, { id: chart.to_param }
+      }.to change(Chart, :count).by(-1)
+    end
 
-  #   it "redirects to the charts list" do
-  #     delete :destroy, { id: chart.to_param }
-  #     expect(response).to redirect_to(charts_url)
-  #   end
-  # end
+    it "redirects to the charts list" do
+      delete :destroy, { id: chart.to_param }
+      expect(response).to redirect_to(charts_path)
+    end
+  end
 end
