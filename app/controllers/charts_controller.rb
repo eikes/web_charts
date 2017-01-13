@@ -2,6 +2,10 @@ class ChartsController < ApplicationController
   include ChartHelper
   before_action :find_chart, only: [:edit, :update, :show]
 
+  def index
+    @charts = Chart.all
+  end
+
   def new
     @chart = Chart.new
   end
