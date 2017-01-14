@@ -2,7 +2,14 @@ require 'rails_helper'
 
 RSpec.describe ChartsController, type: :controller do
   let!(:chart) { Fabricate(:chart) }
-  let(:valid_attributes) { Fabricate.attributes_for(:chart) }
+  let!(:valid_attributes) do
+    Fabricate.attributes_for(:chart, data_attributes: [
+      Fabricate.attributes_for(:datum, value: 1, label: 'fire', color: 'red'),
+      Fabricate.attributes_for(:datum, value: 2, label: 'see', color: 'blue'),
+      Fabricate.attributes_for(:datum, value: 3, label: 'grass', color: 'green'),
+      Fabricate.attributes_for(:datum, value: 4, label: 'sand', color: 'yellow')
+    ])
+  end
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
@@ -13,7 +20,7 @@ RSpec.describe ChartsController, type: :controller do
       expect(response).to be_success
     end
     it "assigns all charts as @charts" do
-      (1..5).each { |num| Chart.new(id: num, title: 'fabrication') }      
+      Fabricate.times(4, :chart)
       charts = Chart.all
       get :index
       expect(assigns(:charts)).to eq(charts)
@@ -38,6 +45,14 @@ RSpec.describe ChartsController, type: :controller do
       it 'returns successfull status code when png-image is required' do
         get :show, id: chart.to_param
         expect(response).to be_success
+      end
+    end
+    context 'default options' do
+      # vanilla_chart = Fabricate(:chart, background_color: nil)
+      it 'returns default options for non-existing params' do
+        pending 'todo'
+        expect(vanilla_chart.background_color).to eq('white')
+        raise
       end
     end
   end
