@@ -32,5 +32,20 @@ RSpec.describe Chart, type: :model do
       )
     end
   end
+  describe 'default values' do
+    it 'returns default values for non-existing params' do
+      pending 'todo'
+      raise
+    end
+  end
+
+  describe 'validations' do
+    it 'is invalid without data' do
+      chart.data = [] 
+      expect(chart).not_to be_valid
+    end
+  end
 
 end
+
+
