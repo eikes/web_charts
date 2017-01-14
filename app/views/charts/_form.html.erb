@@ -1,4 +1,6 @@
 <%= simple_form_for(@chart) do |f| %>
+    <%= f.submit "Submit" %>
+    <%= render 'shared/error_messages', object: f.object %>
     <%= f.simple_fields_for :data do |datum| %>
         <%= render 'datum_fields', f: datum %>
     <% end %>
@@ -14,7 +16,6 @@
     <%= f.input(:grouplabels, prompt: true) %><br>
     <%= f.input(:item_height, prompt: true) %><br>
     <%= f.input(:item_width, prompt: true) %><br>
-    <%= f.input(:title, prompt: true) %><br>
     <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
     <%= f.input(:width, prompt: true) %><br>
     <%= f.input(:height, prompt: true) %><br>
@@ -26,5 +27,4 @@
         ['Pie', :pie]
     ], 
     prompt: true) %><br>
-    <%= f.submit "Submit" %>
 <% end %>
