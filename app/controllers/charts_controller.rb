@@ -54,12 +54,11 @@ class ChartsController < ApplicationController
       :item_width,
       :file_type,
       :style,
-      :data_attributes => [:id, :value, :color, :label, :_destroy]
+      data_attributes: [:id, :value, :color, :label, :_destroy]
     )
   end
 
   def find_chart
     @chart = Chart.find(params[:id])
   end
-
 end
