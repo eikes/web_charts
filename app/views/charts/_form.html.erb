@@ -1,41 +1,71 @@
-<%= simple_form_for(@chart) do |f| %>
+<%= simple_form_for(@chart, html: { class: :chart_form }) do |f| %>
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render 'shared/error_messages', object: f.object %>
+    </div>
+  </div>
   <div class="row">
     <div class="col-lg-6">
-        <%= render 'shared/error_messages', object: f.object %>
-        <%= f.simple_fields_for :data do |datum| %>
-            <%= render 'datum_fields', f: datum %>
-        <% end %>
-        <div class="links">
-            <%= link_to_add_association 'Add Data', f, :data, class: "btn btn-default" %>
-            <%= f.submit class: 'btn btn-primary' %>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <% if @chart.persisted? %>
-          <div class="well">
-            <img src="<%= chart_path(@chart) %>" style="width: 100%;">
-          </div>
-        <% end %>
+      <% if @chart.persisted? %>
         <div class="well">
-          <%= f.input(:title) %>
-          <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %>
-          <%= f.input(:columns, collection: (1..100), prompt: true) %>
-          <%= f.input(:grouplabels) %>
-          <%= f.input(:item_height) %>
-          <%= f.input(:item_width) %>
-          <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %>
-          <%= f.input(:width) %>
-          <%= f.input(:height) %>
-          <%= f.input(:style, collection: [
-              ['Circle', :circle],
-              ['Cross', :cross],
-              ['Manikin', :manikin],
-              ['Bar', :bar],
-              ['Pie', :pie]
-          ],
-          prompt: true) %>
+          <img src="<%= chart_path(@chart) %>" style="width: 100%;">
+        </div>
+      <% end %>
+      <div class="well">
+        <%= f.input(:title) %>
+        <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %>
+        <%= f.input(:columns, collection: (1..100), prompt: true) %>
+        <%= f.input(:grouplabels) %>
+        <%= f.input(:item_height) %>
+        <%= f.input(:item_width) %>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %>
+        <%= f.input(:width) %>
+        <%= f.input(:height) %>
+        <%= f.input(:style, collection: [
+            ['Circle', :circle],
+            ['Cross', :cross],
+            ['Manikin', :manikin],
+            ['Bar', :bar],
+            ['Pie', :pie]
+        ],
+        prompt: true) %>
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
+    <div class="col-lg-6 data-column">
+      <div class="well">
+        <table>
+          <colgroup>
+            <col style="width:15%">
+            <col style="width:40%">
+            <col style="width:25%">
+            <col style="width:20%">
+          </colgroup>
+          <thead>
+            <th>
+              Value
+            </th>
+            <th>
+              Label
+            </th>
+            <th>
+              Color
+            </th>
+            <th>
+            </th>
+          </thead>
+          <tbody>
+            <%= f.simple_fields_for :data do |datum| %>
+              <%= render 'datum_fields', f: datum %>
+            <% end %>
+          </tbody>
+        </table>
+        <hr>
+        <div class="links">
+          <%= link_to_add_association 'Add row', f, :data, class: "btn btn-default" %>
           <%= f.submit class: 'btn btn-primary' %>
         </div>
+      </div>
     </div>
   </div>
 <% end %>
