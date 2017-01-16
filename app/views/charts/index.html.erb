@@ -2,7 +2,9 @@
 
 <h1>Listing Charts</h1>
 
-<table>
+<%= link_to 'New Chart', new_chart_path, class: "btn btn-primary" %>
+
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
@@ -23,7 +25,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Chart', new_chart_path %>

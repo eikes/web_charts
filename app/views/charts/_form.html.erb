@@ -1,30 +1,33 @@
 <%= simple_form_for(@chart) do |f| %>
-    <%= f.submit "Submit" %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <%= f.simple_fields_for :data do |datum| %>
-        <%= render 'datum_fields', f: datum %>
-    <% end %>
-    <div class="links">
-        <span class="btn btn-default"><%= link_to_add_association 'add task', f, :data %></span>
+  <div class="row">
+    <div class="col-lg-6">
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.simple_fields_for :data do |datum| %>
+            <%= render 'datum_fields', f: datum %>
+        <% end %>
+        <div class="links">
+            <%= link_to_add_association 'Add Data', f, :data, class: "btn btn-default" %>
+        </div>
     </div>
-    </br>
-    </br>
-    </br>
-    <%= f.input(:title, prompt: true) %><br>
-    <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
-    <%= f.input(:columns, collection: (1..100), prompt: true) %><br>
-    <%= f.input(:grouplabels, prompt: true) %><br>
-    <%= f.input(:item_height, prompt: true) %><br>
-    <%= f.input(:item_width, prompt: true) %><br>
-    <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
-    <%= f.input(:width, prompt: true) %><br>
-    <%= f.input(:height, prompt: true) %><br>
-    <%= f.input(:style, collection: [
-        ['Circle', :circle], 
-        ['Cross', :cross], 
-        ['Manikin', :manikin], 
-        ['Bar', :bar], 
-        ['Pie', :pie]
-    ], 
-    prompt: true) %><br>
+    <div class="col-lg-6 well">
+        <%= f.input(:title) %><br>
+        <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %><br>
+        <%= f.input(:columns, collection: (1..100), prompt: true) %><br>
+        <%= f.input(:grouplabels) %><br>
+        <%= f.input(:item_height) %><br>
+        <%= f.input(:item_width) %><br>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %><br>
+        <%= f.input(:width) %><br>
+        <%= f.input(:height) %><br>
+        <%= f.input(:style, collection: [
+            ['Circle', :circle],
+            ['Cross', :cross],
+            ['Manikin', :manikin],
+            ['Bar', :bar],
+            ['Pie', :pie]
+        ],
+        prompt: true) %><br>
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>
