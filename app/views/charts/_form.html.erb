@@ -1,11 +1,11 @@
 <%= simple_form_for(@chart, html: { class: :chart_form }) do |f| %>
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
       <%= render 'shared/error_messages', object: f.object %>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-sm-4">
       <% if @chart.persisted? %>
         <div class="well">
           <img src="<%= chart_path(@chart) %>" style="width: 100%;">
@@ -32,7 +32,7 @@
         <%= f.submit class: 'btn btn-primary' %>
       </div>
     </div>
-    <div class="col-lg-6 data-column">
+    <div class="col-sm-8 data-column">
       <div class="well">
         <table>
           <colgroup>
