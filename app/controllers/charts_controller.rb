@@ -13,7 +13,7 @@ class ChartsController < ApplicationController
   def create
     @chart = Chart.new(chart_params)
     if @chart.save
-      redirect_to @chart
+      redirect_to edit_chart_path(@chart)
     else
       render 'new'
     end

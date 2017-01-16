@@ -10,26 +10,32 @@
             <%= f.submit class: 'btn btn-primary' %>
         </div>
     </div>
-    <div class="col-lg-6 well">
-        <img src="<%= chart_path(@chart) %>" style="width: 100%;">
-        <%= f.input(:title) %>
-        <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %>
-        <%= f.input(:columns, collection: (1..100), prompt: true) %>
-        <%= f.input(:grouplabels) %>
-        <%= f.input(:item_height) %>
-        <%= f.input(:item_width) %>
-        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %>
-        <%= f.input(:width) %>
-        <%= f.input(:height) %>
-        <%= f.input(:style, collection: [
-            ['Circle', :circle],
-            ['Cross', :cross],
-            ['Manikin', :manikin],
-            ['Bar', :bar],
-            ['Pie', :pie]
-        ],
-        prompt: true) %>
-        <%= f.submit class: 'btn btn-primary' %>
+    <div class="col-lg-6">
+        <% if @chart.persisted? %>
+          <div class="well">
+            <img src="<%= chart_path(@chart) %>" style="width: 100%;">
+          </div>
+        <% end %>
+        <div class="well">
+          <%= f.input(:title) %>
+          <%= f.input(:background_color, collection: [['White', :white], ['Red', :red], ['Pink', :pink]]) %>
+          <%= f.input(:columns, collection: (1..100), prompt: true) %>
+          <%= f.input(:grouplabels) %>
+          <%= f.input(:item_height) %>
+          <%= f.input(:item_width) %>
+          <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %>
+          <%= f.input(:width) %>
+          <%= f.input(:height) %>
+          <%= f.input(:style, collection: [
+              ['Circle', :circle],
+              ['Cross', :cross],
+              ['Manikin', :manikin],
+              ['Bar', :bar],
+              ['Pie', :pie]
+          ],
+          prompt: true) %>
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
     </div>
   </div>
 <% end %>
