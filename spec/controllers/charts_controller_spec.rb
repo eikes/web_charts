@@ -2,11 +2,30 @@ require 'rails_helper'
 
 RSpec.describe ChartsController, type: :controller do
   let!(:chart) { Fabricate(:chart) }
-  let(:valid_attributes) { Fabricate.attributes_for(:chart) }
+  let!(:valid_attributes) do
+    Fabricate.attributes_for(:chart, data_attributes: [
+      Fabricate.attributes_for(:datum, value: 1, label: 'fire', color: 'red'),
+      Fabricate.attributes_for(:datum, value: 2, label: 'see', color: 'blue'),
+      Fabricate.attributes_for(:datum, value: 3, label: 'grass', color: 'green'),
+      Fabricate.attributes_for(:datum, value: 4, label: 'sand', color: 'yellow')
+    ])
+  end
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
   }
+  describe "GET #index" do
+    it 'renders the index-template' do
+      get :index
+      expect(response).to be_success
+    end
+    it "assigns all charts as @charts" do
+      Fabricate.times(4, :chart)
+      charts = Chart.all
+      get :index
+      expect(assigns(:charts)).to eq(charts)
+    end
+  end
 
   describe 'GET #show' do
     it 'assigns the requested chart as @chart' do
@@ -26,6 +45,14 @@ RSpec.describe ChartsController, type: :controller do
       it 'returns successfull status code when png-image is required' do
         get :show, id: chart.to_param
         expect(response).to be_success
+      end
+    end
+    context 'default options' do
+      # vanilla_chart = Fabricate(:chart, background_color: nil)
+      it 'returns default options for non-existing params' do
+        pending 'todo'
+        expect(vanilla_chart.background_color).to eq('white')
+        raise
       end
     end
   end
@@ -79,21 +106,22 @@ RSpec.describe ChartsController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
+
       it 'updates the requested chart' do
         put :update, id: chart.to_param, chart: { title: 'fabrication_clone' }
         chart.reload
         expect(chart.title).to eq('fabrication_clone')
       end
 
-      # it "assigns the requested chart as @chart" do
-      #   put :update, { id: chart.to_param, chart: valid_attributes }
-      #   expect(assigns(:chart)).to eq(chart)
-      # end
+      it "assigns the requested chart as @chart" do
+        put :update, { id: chart.to_param, chart: valid_attributes }
+        expect(assigns(:chart)).to eq(chart)
+      end
 
-      # it "redirects to the chart" do
-      #   put :update, { id: chart.to_param, chart: valid_attributes }
-      #   expect(response).to redirect_to(chart)
-      # end
+      it "redirects to the chart" do
+        put :update, { id: chart.to_param, chart: valid_attributes }
+        expect(response).to redirect_to(chart)
+      end
     end
 
     # context "with invalid params" do
@@ -109,16 +137,16 @@ RSpec.describe ChartsController, type: :controller do
     # end
   end
 
-  # describe "DELETE #destroy" do
-  #   it "destroys the requested chart" do
-  #     expect {
-  #       delete :destroy, { id: chart.to_param }
-  #     }.to change(Chart, :count).by(-1)
-  #   end
+  describe "DELETE #destroy" do
+    it "destroys the requested chart" do
+      expect {
+        delete :destroy, { id: chart.to_param }
+      }.to change(Chart, :count).by(-1)
+    end
 
-  #   it "redirects to the charts list" do
-  #     delete :destroy, { id: chart.to_param }
-  #     expect(response).to redirect_to(charts_url)
-  #   end
-  # end
+    it "redirects to the charts list" do
+      delete :destroy, { id: chart.to_param }
+      expect(response).to redirect_to(charts_path)
+    end
+  end
 end
