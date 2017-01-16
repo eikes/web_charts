@@ -9,7 +9,7 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'charts', '0.0.10'
 gem 'eikes_scaffolding', '~> 0.0.2'
-gem 'hello_world', '~> 0.0.2'
+gem 'jquery-minicolors-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets

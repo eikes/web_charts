@@ -11,6 +11,16 @@ RSpec.describe ChartsController, type: :controller do
     ])
   end
 
+  let!(:vanilla_chart) do
+    Fabricate(:chart, background_color: nil, style: 'circle', data: [
+      Fabricate(:datum, value: 1, label: nil , color: nil),
+      Fabricate(:datum, value: 2, label: nil, color: nil),
+      Fabricate(:datum, value: 3, label: nil, color: nil),
+      Fabricate(:datum, value: 4, label: nil, color: nil)
+    ])
+  end
+
+
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
   }
@@ -48,11 +58,21 @@ RSpec.describe ChartsController, type: :controller do
       end
     end
     context 'default options' do
-      # vanilla_chart = Fabricate(:chart, background_color: nil)
-      it 'returns default options for non-existing params' do
-        pending 'todo'
-        expect(vanilla_chart.background_color).to eq('white')
-        raise
+      it 'assigns the requested chart as @chart' do
+        get :show, id: vanilla_chart.to_param
+        expect(assigns(:charts_gem_chart).background_color).to eq('white')
+        expect(assigns(:charts_gem_chart).outer_margin).to eq(30)
+        expect(assigns(:charts_gem_chart).colors).to eq([
+          '#e41a1d',
+          '#377eb9',
+          '#4daf4b',
+          '#984ea4',
+          '#ff7f01',
+          '#ffff34',
+          '#a65629',
+          '#f781c0',
+          '#888888'
+        ])
       end
     end
   end

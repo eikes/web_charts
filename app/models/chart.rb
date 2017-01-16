@@ -15,9 +15,9 @@ class Chart < ActiveRecord::Base
       item_width:       item_width,
       type:             file_type.to_sym,
       style:            style.to_sym,
-      colors:           data.map(&:color),
+      colors:           data.map(&:color).any?(&:present?) ? data.map(&:color) :  nil,
       labels:           data.map(&:label),
       data:             data.map(&:value)
-    }
+    }.delete_if { |_key, value| value.blank? }
   end
 end
