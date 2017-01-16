@@ -1,3 +1,5 @@
+{<img src="https://travis-ci.org/eikes/web_charts.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/eikes/web_charts]
+
 == README
 
 This README would normally document whatever steps are necessary to get the
