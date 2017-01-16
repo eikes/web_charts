@@ -3,5 +3,5 @@
     <%= f.input :label %>
     <%= f.input :color, as: :minicolors, input_html: {data: {
           minicolors: {theme: :bootstrap, position: :right}}} %>
-    <%= link_to_remove_association "Remove datum", f %>
+    <%= link_to_remove_association "Remove datum", f, class: "btn btn-danger btn-small" %>
 </div>
