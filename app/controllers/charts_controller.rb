@@ -31,9 +31,10 @@ class ChartsController < ApplicationController
   end
 
   def show
-    charts_gem_chart = Charts::Dispatcher.new(@chart.gem_params).chart
-    send_data charts_gem_chart.render, type: Mime[charts_gem_chart.type], disposition: 'inline'
+    @charts_gem_chart = Charts::Dispatcher.new(@chart.gem_params).chart
+    send_data @charts_gem_chart.render, type: Mime[@charts_gem_chart.type], disposition: 'inline'
   end
+
 
   def destroy
     @chart.delete
