@@ -24,7 +24,7 @@ class ChartsController < ApplicationController
 
   def update
     if @chart.update(chart_params)
-      redirect_to @chart
+      redirect_to edit_chart_path(@chart)
     else
       render 'edit'
     end
