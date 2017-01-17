@@ -13,10 +13,10 @@ RSpec.describe ChartsController, type: :controller do
 
   let!(:vanilla_chart) do
     Fabricate(:chart, background_color: nil, style: 'circle', data: [
-      Fabricate(:datum, value: 1, label: nil , color: nil),
-      Fabricate(:datum, value: 2, label: nil, color: nil),
-      Fabricate(:datum, value: 3, label: nil, color: nil),
-      Fabricate(:datum, value: 4, label: nil, color: nil)
+      Fabricate(:datum, value: 1, label: 'fire' , color: nil),
+      Fabricate(:datum, value: 2, label: 'see', color: nil),
+      Fabricate(:datum, value: 3, label: 'grass', color: nil),
+      Fabricate(:datum, value: 4, label: 'sand', color: nil)
     ])
   end
 
@@ -107,7 +107,7 @@ RSpec.describe ChartsController, type: :controller do
 
       it 'redirects to the created chart' do
         post :create, chart: valid_attributes
-        expect(response).to redirect_to(Chart.last)
+        expect(response).to redirect_to(edit_chart_path(Chart.last))
       end
     end
 
@@ -140,7 +140,7 @@ RSpec.describe ChartsController, type: :controller do
 
       it "redirects to the chart" do
         put :update, { id: chart.to_param, chart: valid_attributes }
-        expect(response).to redirect_to(chart)
+        expect(response).to redirect_to(edit_chart_path(chart))
       end
     end
 
