@@ -12,5 +12,10 @@ RSpec.describe Datum, type: :model do
       datum.value = nil
       expect(datum).not_to be_valid
     end
+
+    it 'is invalid without label' do
+      datum.label = nil
+      expect(datum).not_to be_valid
+    end
   end
 end
