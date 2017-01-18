@@ -14,21 +14,20 @@
       <div class="well">
         <%= f.input(:title) %>
         <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
-        <%= f.input(:columns, collection: (1..100), prompt: true) %>
-        <%= f.input(:grouplabels) %>
+        <%= f.input(:columns) %>
         <%= f.input(:item_height) %>
         <%= f.input(:item_width) %>
-        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], prompt: true) %>
         <%= f.input(:width) %>
         <%= f.input(:height) %>
+        <%= f.input(:grouplabels) %>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
         <%= f.input(:style, collection: [
           ['Circle', :circle],
           ['Cross', :cross],
           ['Manikin', :manikin],
           ['Bar', :bar],
           ['Pie', :pie]
-        ],
-        prompt: true) %>
+        ]) %>
       <%= f.submit class: 'btn btn-primary' %>
       </div>
     </div>
