@@ -3,6 +3,13 @@ class Chart < ActiveRecord::Base
   accepts_nested_attributes_for :data, reject_if: :all_blank, allow_destroy: true
   validates :data, presence: true
 
+  after_initialize :init_defaults, :if => :new_record?
+  def init_defaults
+    self.background_color = '#ffffff'
+    self.style = :circle
+    self.file_type = :svg
+  end
+
   def gem_params
     {
       title:            title,

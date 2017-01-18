@@ -14,32 +14,21 @@
       <div class="well">
         <%= f.input(:title) %>
         <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
-        <%= f.input(:columns, input_html: { value: f.object.columns || 10 }) %>
-        <%= f.input(:item_height, input_html: { value: f.object.item_height || 20 }) %>
-        <%= f.input(:item_width, input_html: { value: f.object.item_width || 20 }) %>
-        <%= f.input(:width, input_html: { value: f.object.width || 1000 }) %>
-        <%= f.input(:height, input_html: { value: f.object.height || 1000 }) %>
+        <%= f.input(:columns) %>
+        <%= f.input(:item_height) %>
+        <%= f.input(:item_width) %>
+        <%= f.input(:width) %>
+        <%= f.input(:height) %>
         <%= f.input(:grouplabels) %>
-        <% if @chart.persisted? %>
-          <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
-          <%= f.input(:style, collection: [
-            ['Circle', :circle],
-            ['Cross', :cross],
-            ['Manikin', :manikin],
-            ['Bar', :bar],
-            ['Pie', :pie]
-          ]) %>
-      <% else %>
-        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], selected: :svg) %>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
         <%= f.input(:style, collection: [
           ['Circle', :circle],
           ['Cross', :cross],
           ['Manikin', :manikin],
           ['Bar', :bar],
           ['Pie', :pie]
-        ], selected: :circle) %>
-    <% end %>
-    <%= f.submit class: 'btn btn-primary' %>
+        ]) %>
+      <%= f.submit class: 'btn btn-primary' %>
       </div>
     </div>
     <div class="col-sm-8 data-column">
