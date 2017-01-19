@@ -3,7 +3,7 @@ class Chart < ActiveRecord::Base
   accepts_nested_attributes_for :data, reject_if: :all_blank, allow_destroy: true
   validates :data, presence: true
 
-  after_initialize :init_defaults, :if => :new_record?
+  after_initialize :init_defaults, if: :new_record?
   def init_defaults
     self.background_color = '#ffffff'
     self.style = :circle
@@ -22,9 +22,9 @@ class Chart < ActiveRecord::Base
       item_width:       item_width,
       type:             file_type.to_sym,
       style:            style.to_sym,
-      colors:           data.map(&:color).any?(&:present?) ? data.map(&:color) :  nil,
+      colors:           data.map(&:color).any?(&:present?) ? data.map(&:color) : nil,
       labels:           data.map(&:label),
-      data:             data.map(&:value)
+      data:             style.to_sym == :bar ? data.map { |datum| [datum.value] } : data.map(&:value)
     }.delete_if { |_key, value| value.blank? }
   end
 end
