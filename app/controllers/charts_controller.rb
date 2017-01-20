@@ -35,7 +35,6 @@ class ChartsController < ApplicationController
     send_data @charts_gem_chart.render, type: Mime[@charts_gem_chart.type], disposition: 'inline'
   end
 
-
   def destroy
     @chart.delete
     redirect_to charts_path, notice: 'Chart successfully deleted!'
