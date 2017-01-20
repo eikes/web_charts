@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   root 'charts#index'
   resources :charts
+  get '/charts/download/:id', to: 'charts#download', as: 'chart_download'
 end

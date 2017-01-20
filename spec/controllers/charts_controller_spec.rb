@@ -169,4 +169,26 @@ RSpec.describe ChartsController, type: :controller do
       expect(response).to redirect_to(charts_path)
     end
   end
+  describe 'GET #download' do
+    context 'svg selsected and title present' do
+      it 'responses with the correct http-header' do
+        get :download, id: chart.id      
+        expect(response).to be_successful
+        expect(response.headers["Content-Type"]).to eq("image/svg+xml")
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.svg\"")
+      end
+    end
+    # context 'png selected and title absent' do
+    #   it 'responses with the correct http-header' do
+    #     png_chart = chart 
+    #     png_chart.title = ''
+    #     png_chart.file_type = :png
+    #     binding.pry
+    #     get :download, id: png_chart.id      
+    #     expect(response).to be_successful
+    #     # expect(response.headers["Content-Type"]).to eq("image/png+xml")
+    #     expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"untitled.png\"")
+    #   end
+    # end
+  end
 end
