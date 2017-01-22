@@ -20,6 +20,7 @@ RSpec.describe ChartsController, type: :controller do
     ])
   end
 
+  let(:png_chart) { Fabricate(:chart, file_type: :png) }
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
@@ -170,25 +171,20 @@ RSpec.describe ChartsController, type: :controller do
     end
   end
   describe 'GET #download' do
-    context 'svg selsected and title present' do
+    context 'svg selected' do
       it 'responses with the correct http-header' do
         get :download, id: chart.id      
         expect(response).to be_successful
-        expect(response.headers["Content-Type"]).to eq("image/svg+xml")
         expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.svg\"")
       end
     end
-    # context 'png selected and title absent' do
-    #   it 'responses with the correct http-header' do
-    #     png_chart = chart 
-    #     png_chart.title = ''
-    #     png_chart.file_type = :png
-    #     binding.pry
-    #     get :download, id: png_chart.id      
-    #     expect(response).to be_successful
-    #     # expect(response.headers["Content-Type"]).to eq("image/png+xml")
-    #     expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"untitled.png\"")
-    #   end
-    # end
+    context 'png selected' do
+      it 'responses with the correct http-header' do
+        pending('chart/after_initialize prevents fabricate from setting the necessary params')
+        get :download, id: png_chart.id      
+        expect(response).to be_successful
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.png\"")
+      end
+    end
   end
 end
