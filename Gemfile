@@ -11,8 +11,6 @@ gem 'simple_form'
 gem 'charts', '0.0.10'
 gem 'eikes_scaffolding', '~> 0.0.2'
 gem 'jquery-minicolors-rails'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -46,6 +44,8 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'fabrication'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 group :test do
   gem 'database_cleaner'
