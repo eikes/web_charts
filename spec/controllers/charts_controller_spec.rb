@@ -20,6 +20,7 @@ RSpec.describe ChartsController, type: :controller do
     ])
   end
 
+  let(:png_chart) { Fabricate(:chart, file_type: :png) }
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
@@ -167,6 +168,23 @@ RSpec.describe ChartsController, type: :controller do
     it "redirects to the charts list" do
       delete :destroy, { id: chart.to_param }
       expect(response).to redirect_to(charts_path)
+    end
+  end
+  describe 'GET #download' do
+    context 'svg selected' do
+      it 'responses with the correct http-header' do
+        get :download, id: chart.id      
+        expect(response).to be_successful
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.svg\"")
+      end
+    end
+    context 'png selected' do
+      it 'responses with the correct http-header' do
+        pending('chart/after_initialize prevents fabricate from setting the necessary params')
+        get :download, id: png_chart.id      
+        expect(response).to be_successful
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.png\"")
+      end
     end
   end
 end

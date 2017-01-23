@@ -33,5 +33,9 @@ RSpec.describe ChartsController, type: :routing do
     it "routes to #destroy" do
       expect(:delete => "/charts/1").to route_to("charts#destroy", :id => "1")
     end
+
+    it "routes to #download" do
+      expect(:get => "/charts/download/1").to route_to("charts#download", :id => "1")
+    end
   end
 end
