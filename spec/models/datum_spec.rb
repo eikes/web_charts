@@ -8,9 +8,16 @@ RSpec.describe Datum, type: :model do
       expect(datum).to be_valid
     end
 
-    it 'is invalid without data' do
-      datum.value = nil
-      expect(datum).not_to be_valid
+    context 'value' do
+      it 'is invalid without data' do
+        datum.value = nil
+        expect(datum).not_to be_valid
+      end
+
+      it 'must be a number' do
+        datum.value = 'string'
+        expect(datum).not_to be_valid
+      end
     end
 
     it 'is invalid without label' do
