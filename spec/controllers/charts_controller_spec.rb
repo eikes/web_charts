@@ -11,20 +11,9 @@ RSpec.describe ChartsController, type: :controller do
     ])
   end
 
-  let!(:vanilla_chart) do
-    Fabricate(:chart, background_color: nil, style: 'circle', data: [
-      Fabricate(:datum, value: 1, label: 'fire' , color: nil),
-      Fabricate(:datum, value: 2, label: 'see', color: nil),
-      Fabricate(:datum, value: 3, label: 'grass', color: nil),
-      Fabricate(:datum, value: 4, label: 'sand', color: nil)
-    ])
-  end
-
+  let!(:invalid_attributes) { Fabricate.attributes_for(:chart, data_attributes: []) }  
   let(:png_chart) { Fabricate(:chart, file_type: :png) }
 
-  let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
-  }
   describe "GET #index" do
     it 'renders the index-template' do
       get :index
@@ -56,24 +45,6 @@ RSpec.describe ChartsController, type: :controller do
       it 'returns successfull status code when png-image is required' do
         get :show, id: chart.to_param
         expect(response).to be_success
-      end
-    end
-    context 'default options' do
-      it 'assigns the requested chart as @chart' do
-        get :show, id: vanilla_chart.to_param
-        expect(assigns(:charts_gem_chart).background_color).to eq('#ffffff')
-        expect(assigns(:charts_gem_chart).outer_margin).to eq(30)
-        expect(assigns(:charts_gem_chart).colors).to eq([
-          '#e41a1d',
-          '#377eb9',
-          '#4daf4b',
-          '#984ea4',
-          '#ff7f01',
-          '#ffff34',
-          '#a65629',
-          '#f781c0',
-          '#888888'
-        ])
       end
     end
   end
@@ -180,7 +151,6 @@ RSpec.describe ChartsController, type: :controller do
     end
     context 'png selected' do
       it 'responses with the correct http-header' do
-        pending('chart/after_initialize prevents fabricate from setting the necessary params')
         get :download, id: png_chart.id      
         expect(response).to be_successful
         expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.png\"")
