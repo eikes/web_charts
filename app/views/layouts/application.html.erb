@@ -51,8 +51,11 @@
             <% unless current_page?(new_chart_path) %>
               <li><%= link_to "New Chart", new_chart_path %></li>
             <% end %>
-            <% if show_or_edit_template?(@chart) %>
-              <li><%= link_to "Download", chart_download_path(@chart)  %></li>
+            <% if show_template?(@chart) %>
+              <li><%= link_to "Edit Chart", edit_chart_path(@chart) %></li>
+            <% end %>
+            <% if show_template?(@chart) || edit_template?(@chart) %>
+              <li><%= link_to "Download", chart_download_path(@chart) %></li>
             <% end %>
           </ul>
         </div>
