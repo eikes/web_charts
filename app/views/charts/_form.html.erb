@@ -8,7 +8,7 @@
     <div class="col-sm-4">
       <% if @chart.persisted? %>
         <div class="well">
-          <%= link_to image_tag(chart_path(@chart), style: "width: 100%;"), chart_path(@chart) %>
+          <%= link_to image_tag(chart_render_image_path(@chart), style: "width: 100%;"), chart_path(@chart) %>
           <div class="links">
             <%= link_to 'Download', chart_download_path(@chart), class: 'btn btn-primary' %>
           </div>
@@ -16,21 +16,21 @@
       <% end %>
       <div class="well">
         <%= f.input(:title) %>
-        <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
+        <%= f.input(:background_color, input_html: { class: :minicolors, value: f.object.background_color || '#ffffff' } ) %>
         <%= f.input(:columns) %>
         <%= f.input(:item_height) %>
         <%= f.input(:item_width) %>
         <%= f.input(:width) %>
         <%= f.input(:height) %>
         <%= f.input(:grouplabels) %>
-        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]], include_blank: false) %>
         <%= f.input(:style, collection: [
           ['Circle', :circle],
           ['Cross', :cross],
           ['Manikin', :manikin],
           ['Bar', :bar],
-          ['Pie', :pie]
-        ]) %>
+          ['Pie', :pie]], include_blank: false
+        ) %>
       <%= f.submit class: 'btn btn-primary' %>
       </div>
     </div>
