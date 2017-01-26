@@ -13,7 +13,7 @@ RSpec.describe Chart, type: :model do
     it 'returns options in right format' do
       expect(chart.gem_params).to eq(
         title:            'fabrication',
-        background_color: '#ffffff',
+        background_color: 'white',
         columns:          20,
         grouplabels:      ['pizza', 'pasta', 'spaghetti'],
         height:           1000,
@@ -32,7 +32,7 @@ RSpec.describe Chart, type: :model do
       bar_chart.style = :bar
       expect(bar_chart.gem_params).to eq(
         title:            'fabrication',
-        background_color: '#ffffff',
+        background_color: 'white',
         columns:          20,
         grouplabels:      ['pizza', 'pasta', 'spaghetti'],
         height:           1000,
@@ -45,15 +45,6 @@ RSpec.describe Chart, type: :model do
         labels:           ['fire', 'see', 'grass', 'sand'],
         data:             [[1.0], [2.0], [3.0], [4.0]]
       )
-    end
-  end
-
-  describe '#init_defaults' do
-    vanilla_chart = Chart.new
-    it 'returns new @chart with correct default params' do
-      expect(vanilla_chart.background_color).to eq('#ffffff')
-      expect(vanilla_chart.style).to eq('circle')
-      expect(vanilla_chart.file_type).to eq('svg')
     end
   end
 
