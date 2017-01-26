@@ -1,0 +1,10 @@
+<% if @chart.persisted? %>
+<h1> <% @chart.title %> </h1>
+  <div class="well">
+    <%= image_tag chart_render_image_path(@chart), style: "width: 100%;" %>
+    <div class="links">
+      <%= link_to 'Download', chart_download_path(@chart), class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+
