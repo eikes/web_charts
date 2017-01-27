@@ -8,7 +8,7 @@
     <div class="col-sm-4">
       <% if @chart.persisted? %>
         <div class="well">
-          <%= link_to image_tag(chart_path(@chart), style: "width: 100%;"), chart_path(@chart) %>
+          <%= link_to image_tag(chart_render_image_path(@chart), style: "width: 100%;"), chart_path(@chart) %>
           <div class="links">
             <%= link_to 'Download', chart_download_path(@chart), class: 'btn btn-primary' %>
           </div>

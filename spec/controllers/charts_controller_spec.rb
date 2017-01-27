@@ -39,13 +39,20 @@ RSpec.describe ChartsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'assigns the requested chart as @chart' do
+    it 'assigns requested chart as @chart' do
       get :show, id: chart.to_param
       expect(assigns(:chart)).to eq(chart)
     end
+    it "renders the show-template" do
+      get :show, id: chart.to_param
+      expect(response).to render_template('show')
+    end
+  end
+
+  describe 'Get #render_image' do
     context 'svg' do
       it 'returns svg' do
-        get :show, id: chart.to_param
+        get :render_image, id: chart.to_param
         expect(response.body).to match(/svg/)
       end
     end
@@ -54,26 +61,8 @@ RSpec.describe ChartsController, type: :controller do
         chart.update(file_type: 'png')
       end
       it 'returns successfull status code when png-image is required' do
-        get :show, id: chart.to_param
+        get :render_image, id: chart.to_param
         expect(response).to be_success
-      end
-    end
-    context 'default options' do
-      it 'assigns the requested chart as @chart' do
-        get :show, id: vanilla_chart.to_param
-        expect(assigns(:charts_gem_chart).background_color).to eq('#ffffff')
-        expect(assigns(:charts_gem_chart).outer_margin).to eq(30)
-        expect(assigns(:charts_gem_chart).colors).to eq([
-          '#e41a1d',
-          '#377eb9',
-          '#4daf4b',
-          '#984ea4',
-          '#ff7f01',
-          '#ffff34',
-          '#a65629',
-          '#f781c0',
-          '#888888'
-        ])
       end
     end
   end

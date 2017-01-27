@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
   include ChartHelper
-  before_action :find_chart, only: [:edit, :update, :show, :destroy, :download]
+  before_action :find_chart, only: [:render_image, :edit, :update, :show, :destroy, :download]
 
   def index
     @charts = Chart.all
@@ -31,7 +31,6 @@ class ChartsController < ApplicationController
   end
 
   def show
-    send_data charts_gem_chart.render, type: Mime[charts_gem_chart.type], disposition: 'inline'
   end
 
   def download
@@ -40,6 +39,10 @@ class ChartsController < ApplicationController
                                          disposition: 'attachment',
                                          filename:    '%<filename>s.%<filename_extension>s' % name_file
                                        }
+  end
+
+  def render_image
+    send_data charts_gem_chart.render, type: Mime[charts_gem_chart.type], disposition: 'inline'
   end
 
   def destroy
@@ -52,6 +55,7 @@ class ChartsController < ApplicationController
   def charts_gem_chart
     @charts_gem_chart ||= Charts::Dispatcher.new(@chart.gem_params).chart
   end
+
 
   def chart_params
     params.require(:chart).permit(
