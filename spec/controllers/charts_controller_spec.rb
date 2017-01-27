@@ -65,24 +65,6 @@ RSpec.describe ChartsController, type: :controller do
         expect(response).to be_success
       end
     end
-    context 'default options' do
-      it 'assigns the requested chart as @chart' do
-        get :show, id: vanilla_chart.to_param
-        expect(assigns(:charts_gem_chart).background_color).to eq('#ffffff')
-        expect(assigns(:charts_gem_chart).outer_margin).to eq(30)
-        expect(assigns(:charts_gem_chart).colors).to eq([
-          '#e41a1d',
-          '#377eb9',
-          '#4daf4b',
-          '#984ea4',
-          '#ff7f01',
-          '#ffff34',
-          '#a65629',
-          '#f781c0',
-          '#888888'
-        ])
-      end
-    end
   end
 
   describe 'GET #new' do
