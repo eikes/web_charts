@@ -27,4 +27,8 @@ class Chart < ActiveRecord::Base
       data:             style.to_sym == :bar ? data.map { |datum| [datum.value] } : data.map(&:value)
     }.delete_if { |_key, value| value.blank? }
   end
+
+  def file_name
+    (title.present? ? title.parameterize('_') : "chart_#{Time.zone.now.strftime('%Y_%m_%d_-_%H_%M')}") + ".#{file_type}"
+  end
 end

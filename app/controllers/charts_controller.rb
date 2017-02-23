@@ -1,5 +1,4 @@
 class ChartsController < ApplicationController
-  include ChartHelper
   before_action :find_chart, only: [:render_image, :edit, :update, :show, :destroy, :download]
 
   def index
@@ -37,7 +36,7 @@ class ChartsController < ApplicationController
     send_data charts_gem_chart.render, {
                                          type:        Mime[charts_gem_chart.type],
                                          disposition: 'attachment',
-                                         filename:    '%<filename>s.%<filename_extension>s' % name_file
+                                         filename:    @chart.file_name
                                        }
   end
 

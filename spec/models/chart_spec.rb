@@ -57,6 +57,22 @@ RSpec.describe Chart, type: :model do
     end
   end
 
+  describe 'file_name' do
+    it 'returns the parameterized title' do
+      chart.title = 'Some example title'
+      expect(chart.file_name).to eq('some_example_title.svg')
+    end
+    it 'returns the selected file type extension' do
+      chart.title = 'Some example title'
+      chart.file_type = :png
+      expect(chart.file_name).to eq('some_example_title.png')
+    end
+    it 'returns a generic name if no title is given' do
+      chart.title = ''
+      expect(chart.file_name).to eq("chart_#{Time.zone.now.strftime('%Y_%m_%d_-_%H_%M')}.svg")
+    end
+  end
+
   describe 'validations' do
     it 'creates a new instance of a user given valid attributes' do
       expect(chart).to be_valid
