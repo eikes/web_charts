@@ -30,29 +30,18 @@ RSpec.describe Chart, type: :model do
     it 'returns data in nested arrays when bar-chart is selected' do
       bar_chart = chart
       bar_chart.style = :bar
-      expect(bar_chart.gem_params).to eq(
-        title:            'fabrication',
-        background_color: '#ffffff',
-        columns:          20,
-        grouplabels:      ['pizza', 'pasta', 'spaghetti'],
-        height:           1000,
-        width:            1000,
-        item_height:      50,
-        item_width:       50,
-        type:             :svg,
-        style:            :bar,
-        colors:           ['red', 'blue', 'green', 'yellow'],
-        labels:           ['fire', 'see', 'grass', 'sand'],
-        data:             [[1.0], [2.0], [3.0], [4.0]]
+      expect(bar_chart.gem_params).to include(
+        style: :bar,
+        data:  [[1.0], [2.0], [3.0], [4.0]]
       )
     end
   end
 
-  describe '#init_defaults' do
+  describe 'database defaults' do
     vanilla_chart = Chart.new
     it 'returns new @chart with correct default params' do
       expect(vanilla_chart.background_color).to eq('#ffffff')
-      expect(vanilla_chart.style).to eq('circle')
+      expect(vanilla_chart.style).to eq('pie')
       expect(vanilla_chart.file_type).to eq('svg')
     end
   end

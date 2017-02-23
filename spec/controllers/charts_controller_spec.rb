@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ChartsController, type: :controller do
   let!(:chart) { Fabricate(:chart) }
+  let!(:png_chart) { Fabricate(:chart, file_type: 'png') }
   let!(:valid_attributes) do
     Fabricate.attributes_for(:chart, data_attributes: [
       Fabricate.attributes_for(:datum, value: 1, label: 'fire', color: 'red'),
@@ -20,10 +21,11 @@ RSpec.describe ChartsController, type: :controller do
     ])
   end
 
-  let(:png_chart) { Fabricate(:chart, file_type: :png) }
-
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    {
+      title: '',
+      data_attributes: []
+    }
   }
   describe "GET #index" do
     it 'renders the index-template' do
@@ -55,14 +57,19 @@ RSpec.describe ChartsController, type: :controller do
         get :render_image, id: chart.to_param
         expect(response.body).to match(/svg/)
       end
-    end
-    context 'png' do
-      before do
-        chart.update(file_type: 'png')
-      end
-      it 'returns successfull status code when png-image is required' do
+      it 'returns successfull status code for svg image' do
         get :render_image, id: chart.to_param
         expect(response).to be_success
+      end
+    end
+    context 'png' do
+      it 'returns successfull status code for png image' do
+        get :render_image, id: png_chart.to_param
+        expect(response).to be_success
+      end
+      it 'returns png' do
+        get :render_image, id: png_chart.to_param
+        expect(response.body).to match(/PNG/)
       end
     end
   end
@@ -162,15 +169,14 @@ RSpec.describe ChartsController, type: :controller do
   describe 'GET #download' do
     context 'svg selected' do
       it 'responses with the correct http-header' do
-        get :download, id: chart.id      
+        get :download, id: chart.id
         expect(response).to be_successful
         expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.svg\"")
       end
     end
     context 'png selected' do
       it 'responses with the correct http-header' do
-        pending('chart/after_initialize prevents fabricate from setting the necessary params')
-        get :download, id: png_chart.id      
+        get :download, id: png_chart.id
         expect(response).to be_successful
         expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.png\"")
       end

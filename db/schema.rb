@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106110246) do
+ActiveRecord::Schema.define(version: 20170223125803) do
 
   create_table "charts", force: :cascade do |t|
     t.string   "title"
-    t.string   "background_color"
+    t.string   "background_color", default: "#ffffff"
     t.integer  "columns"
     t.text     "grouplabels"
     t.integer  "height"
     t.integer  "width"
     t.integer  "item_height"
     t.integer  "item_width"
-    t.string   "file_type"
-    t.string   "style"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "file_type",        default: "svg"
+    t.string   "style",            default: "pie"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "data", force: :cascade do |t|
