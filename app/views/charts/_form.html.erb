@@ -16,7 +16,6 @@
       <% end %>
       <div class="well">
         <%= f.input(:title) %>
-        <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
         <%= f.input(:columns) %>
         <%= f.input(:item_height) %>
         <%= f.input(:item_width) %>
@@ -36,7 +35,17 @@
     </div>
     <div class="col-sm-8 data-column">
       <div class="well">
-        <table>
+        <div class="row">
+          <div class="col-sm-4">
+            <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
+            <%= f.input :color_scheme,
+                        collection:    Chart.color_schemes,
+                        as:            :grouped_select,
+                        group_method:  :last
+            %>
+          </div>
+        </div>
+        <table id="row-table">
           <colgroup>
             <col style="width:15%">
             <col style="width:40%">

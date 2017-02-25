@@ -59,6 +59,7 @@ class ChartsController < ApplicationController
   def chart_params
     params.require(:chart).permit(
       :title,
+      :color_scheme,
       :background_color,
       :columns,
       :grouplabels,

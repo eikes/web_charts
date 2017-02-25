@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223125803) do
+ActiveRecord::Schema.define(version: 20170225221044) do
 
   create_table "charts", force: :cascade do |t|
     t.string   "title"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170223125803) do
     t.string   "style",            default: "pie"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "color_scheme",     default: "Set1"
   end
 
   create_table "data", force: :cascade do |t|

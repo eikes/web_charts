@@ -3,6 +3,15 @@ class Chart < ActiveRecord::Base
   accepts_nested_attributes_for :data, reject_if: :all_blank, allow_destroy: true
   validates :data, presence: true
 
+  def self.color_schemes
+    {
+      sequential:  %w(BuGn BuPu GnBu OrRd PuBu PuBuGn PuRd RdPu YlGn YlGnBu YlOrBr YlOrRd),
+      singlehue:   %w(Blues Greens Greys Oranges Purples Reds),
+      diverging:   %w(BrBG PiYG PRGn PuOr RdBu RdGy RdYlBu RdYlGn Spectral),
+      qualitative: %w(Accent Dark2 Paired Pastel1 Pastel2 Set1 Set2 Set3)
+    }
+  end
+
   def gem_params
     {
       title:            title,

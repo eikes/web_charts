@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require underscore
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require jquery_ujs
