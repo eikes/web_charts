@@ -76,7 +76,9 @@ class ChartsController < ApplicationController
     # Unfuck data, strong params can't use deal with nested arrays
     # https://github.com/rails/rails/issues/23640
     # Also use float values
-    result[:data] = result[:data].map { |_, c| c[:column].map { |v| v.present? ? v.to_f : nil  } }
+    if result[:data]
+      result[:data] = result[:data].map { |_, c| c[:column].map { |v| v.present? ? v.to_f : nil  } }
+    end
     result
   end
 

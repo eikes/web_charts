@@ -4,29 +4,26 @@ RSpec.describe ChartsController, type: :controller do
   let!(:chart) { Fabricate(:chart) }
   let!(:png_chart) { Fabricate(:chart, file_type: 'png') }
   let!(:valid_attributes) do
-    Fabricate.attributes_for(:chart, data_attributes: [
-      Fabricate.attributes_for(:datum, value: 1, label: 'fire', color: 'red'),
-      Fabricate.attributes_for(:datum, value: 2, label: 'see', color: 'blue'),
-      Fabricate.attributes_for(:datum, value: 3, label: 'grass', color: 'green'),
-      Fabricate.attributes_for(:datum, value: 4, label: 'sand', color: 'yellow')
-    ])
+    {
+      title: 'Chart title',
+      colors: ['red', 'green'],
+      data: {
+        '1' => { column: [1,2,3] },
+        '2' => { column: [4,5,6] }
+      }
+    }
   end
-
-  let!(:vanilla_chart) do
-    Fabricate(:chart, background_color: nil, style: 'circle', data: [
-      Fabricate(:datum, value: 1, label: 'fire' , color: nil),
-      Fabricate(:datum, value: 2, label: 'see', color: nil),
-      Fabricate(:datum, value: 3, label: 'grass', color: nil),
-      Fabricate(:datum, value: 4, label: 'sand', color: nil)
-    ])
-  end
-
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     {
       title: '',
-      data_attributes: []
+      colors: ['red'],
+      data: {
+        '1' => { column: [1, 2] },
+        '2' => { column: [4, 8] }
+      }
     }
-  }
+  end
+
   describe "GET #index" do
     it 'renders the index-template' do
       get :index
@@ -171,14 +168,14 @@ RSpec.describe ChartsController, type: :controller do
       it 'responses with the correct http-header' do
         get :download, id: chart.id
         expect(response).to be_successful
-        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.svg\"")
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"chart_title.svg\"")
       end
     end
     context 'png selected' do
       it 'responses with the correct http-header' do
         get :download, id: png_chart.id
         expect(response).to be_successful
-        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"fabrication.png\"")
+        expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"chart_title.png\"")
       end
     end
   end

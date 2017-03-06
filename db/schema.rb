@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20170106110246) do
 
   create_table "charts", force: :cascade do |t|
     t.string   "title"
-    t.text     "data"
-    t.text     "row_labels"
-    t.text     "column_labels"
-    t.text     "colors"
+    t.text     "data",             default: "[[0]]"
+    t.text     "row_labels",       default: "[]"
+    t.text     "column_labels",    default: "[]"
+    t.text     "colors",           default: "[]"
     t.integer  "height"
     t.integer  "width"
     t.string   "background_color", default: "#ffffff"

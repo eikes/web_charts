@@ -2,37 +2,30 @@ require 'rails_helper'
 
 RSpec.describe Chart, type: :model do
   let!(:chart) do
-    Fabricate(:chart, data: [
-      Fabricate(:datum, value: 1, label: 'fire', color: 'red'),
-      Fabricate(:datum, value: 2, label: 'see', color: 'blue'),
-      Fabricate(:datum, value: 3, label: 'grass', color: 'green'),
-      Fabricate(:datum, value: 4, label: 'sand', color: 'yellow')
-    ])
+    Fabricate(:chart)
   end
   describe '#gem_params' do
     it 'returns options in right format' do
-      expect(chart.gem_params).to eq(
-        title:            'fabrication',
+      expect(chart.gem_params).to include(
+        title:            'Chart title',
         background_color: '#ffffff',
         columns:          20,
-        grouplabels:      ['pizza', 'pasta', 'spaghetti'],
         height:           1000,
         width:            1000,
         item_height:      50,
         item_width:       50,
         type:             :svg,
-        style:            :circle,
+        style:            :bar,
         colors:           ['red', 'blue', 'green', 'yellow'],
         labels:           ['fire', 'see', 'grass', 'sand'],
-        data:             [1.0, 2.0, 3.0, 4.0]
+        data:             [[123, 456, 789], [222, 333, 444], [100, 200, nil], [nil, -1, -100]]
       )
     end
-    it 'returns data in nested arrays when bar-chart is selected' do
-      bar_chart = chart
-      bar_chart.style = :bar
-      expect(bar_chart.gem_params).to include(
-        style: :bar,
-        data:  [[1.0], [2.0], [3.0], [4.0]]
+    it 'returns first column data in an array when pie-chart is selected' do
+      chart.style = :pie
+      expect(chart.gem_params).to include(
+        style: :pie,
+        data:  [123, 222, 100, nil]
       )
     end
   end
@@ -41,7 +34,7 @@ RSpec.describe Chart, type: :model do
     vanilla_chart = Chart.new
     it 'returns new @chart with correct default params' do
       expect(vanilla_chart.background_color).to eq('#ffffff')
-      expect(vanilla_chart.style).to eq('pie')
+      expect(vanilla_chart.style).to eq('bar')
       expect(vanilla_chart.file_type).to eq('svg')
     end
   end

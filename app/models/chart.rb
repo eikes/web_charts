@@ -5,8 +5,6 @@ class Chart < ActiveRecord::Base
   serialize :colors, JSON
 
   validates :data,
-            :row_labels,
-            :column_labels,
             :colors,
             presence: true
 
@@ -54,7 +52,7 @@ class Chart < ActiveRecord::Base
       type:             file_type.to_sym,
       style:            style.to_sym,
       colors:           colors,
-      # labels:           data.map(&:label),
+      labels:           row_labels,
       data:             style.to_sym == :bar ? data : data.map(&:first)
     }.delete_if { |_key, value| value.blank? }
   end
