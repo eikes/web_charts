@@ -37,7 +37,8 @@ $(function(){
   $('#chart-add-row').on('click', function() {
     remove_minicolor();
     var row = $('#data-table tbody tr.data-tr').last().clone();
-    row.find('td.data-td input').val('').attr('name', 'chart[data]['+(new Date()).getTime()+'][column][]');
+    row.find('td input').val('');
+    row.find('td.data-td input').attr('name', 'chart[data]['+(new Date()).getTime()+'][column][]');
     $('#data-table tbody tr.data-tr').last().after(row);
     init_minicolor();
     apply_colors();

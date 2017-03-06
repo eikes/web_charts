@@ -53,6 +53,7 @@ class Chart < ActiveRecord::Base
       style:            style.to_sym,
       colors:           colors,
       labels:           row_labels,
+      group_labels:     column_labels,
       data:             style.to_sym == :bar ? data : data.map(&:first)
     }.delete_if { |_key, value| value.blank? }
   end

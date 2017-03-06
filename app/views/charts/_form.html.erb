@@ -30,8 +30,21 @@
         </div>
         <h3>Data</h3>
         <table id="data-table">
+          <tr class="ctrl-tr">
+            <td></td>
+            <td></td>
+            <% @chart.column_labels.each do |column_label| %>
+              <td class="ctrl-column-td">
+                <%= text_field_tag "chart[column_labels][]", column_label, id: nil, placeholder: 'Label' %>
+              </td>
+            <% end %>
+            <td></td>
+          </tr>
           <% @chart.data.each_with_index do |row, row_index| %>
             <tr class="data-tr">
+              <td class="ctrl-row-td">
+                <%= text_field_tag "chart[row_labels][]", @chart.row_labels[row_index], id: nil, placeholder: 'Label' %>
+              </td>
               <td class="ctrl-row-td">
                 <%= text_field_tag "chart[colors][]", @chart.colors[row_index], class: "minicolors", id: nil %>
               </td>
@@ -46,6 +59,7 @@
             </tr>
           <% end %>
           <tr class="ctrl-tr">
+            <td></td>
             <td></td>
             <% @chart.data.first.each do %>
               <td class="ctrl-column-td">
