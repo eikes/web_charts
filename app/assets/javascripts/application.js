@@ -16,5 +16,4 @@
 //= require jquery.minicolors.simple_form
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require cocoon
 //= require_tree .

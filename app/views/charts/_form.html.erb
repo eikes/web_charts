@@ -5,39 +5,22 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-12">
       <% if @chart.persisted? %>
         <div class="well">
-          <%= link_to image_tag(chart_render_image_path(@chart), style: "width: 100%;"), chart_path(@chart) %>
+          <%= link_to image_tag(chart_render_image_path(@chart), style: "max-width: 400px; max-height: 400px;"), chart_path(@chart) %>
           <div class="links">
             <%= link_to 'Download', chart_download_path(@chart), class: 'btn btn-primary' %>
           </div>
         </div>
       <% end %>
-      <div class="well">
-        <%= f.input(:title) %>
-        <%= f.input(:columns) %>
-        <%= f.input(:item_height) %>
-        <%= f.input(:item_width) %>
-        <%= f.input(:width) %>
-        <%= f.input(:height) %>
-        <%= f.input(:grouplabels) %>
-        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
-        <%= f.input(:style, collection: [
-          ['Circle', :circle],
-          ['Cross', :cross],
-          ['Manikin', :manikin],
-          ['Bar', :bar],
-          ['Pie', :pie]
-        ]) %>
-      <%= f.submit class: 'btn btn-primary' %>
-      </div>
     </div>
-    <div class="col-sm-8 data-column">
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
       <div class="well">
         <div class="row">
           <div class="col-sm-4">
-            <%= f.input(:background_color, input_html: { class: :minicolors } ) %>
             <%= f.input :color_scheme,
                         collection:    Chart.color_schemes,
                         as:            :grouped_select,
@@ -45,37 +28,65 @@
             %>
           </div>
         </div>
-        <table id="row-table">
-          <colgroup>
-            <col style="width:15%">
-            <col style="width:40%">
-            <col style="width:25%">
-            <col style="width:20%">
-          </colgroup>
-          <thead>
-            <th>
-              Value
-            </th>
-            <th>
-              Label
-            </th>
-            <th>
-              Color
-            </th>
-            <th>
-            </th>
-          </thead>
-          <tbody>
-            <%= f.simple_fields_for :data do |datum| %>
-              <%= render 'datum_fields', f: datum %>
+        <h3>Data</h3>
+        <table id="data-table">
+          <% @chart.data.each_with_index do |row, row_index| %>
+            <tr class="data-tr">
+              <td class="ctrl-row-td">
+                <%= text_field_tag "chart[colors][]", @chart.colors[row_index], class: "minicolors", id: nil %>
+              </td>
+              <% row.each_with_index do |datum, column_index| %>
+                <td class="data-td">
+                  <%= text_field_tag "chart[data][#{row_index}][column][]", datum, id: nil %>
+                </td>
+              <% end %>
+              <td class="ctrl-row-td">
+                <span class="btn btn-xs btn-danger chart-delete-row">Delete</span>
+              </td>
+            </tr>
+          <% end %>
+          <tr class="ctrl-tr">
+            <td></td>
+            <% @chart.data.first.each do %>
+              <td class="ctrl-column-td">
+                <span class="btn btn-xs btn-danger chart-delete-column">Delete</span>
+              </td>
             <% end %>
-          </tbody>
+            <td></td>
+          </tr>
         </table>
         <hr>
         <div class="links">
-          <%= link_to_add_association 'Add row', f, :data, class: "btn btn-default" %>
+          <span class="btn btn-default" id="chart-add-column">Add Column</span>
+          <span class="btn btn-default" id="chart-add-row">Add Row</span>
           <%= f.submit class: 'btn btn-primary' %>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="well">
+        <%= f.input(:title) %>
+        <%= f.input(:style, collection: [
+          ['Bar', :bar],
+          ['Pie', :pie],
+          ['Circle', :circle],
+          ['Cross', :cross],
+          ['Manikin', :manikin]
+        ]) %>
+        <%= f.input(:width) %>
+        <%= f.input(:height) %>
+        <%= f.input(:background_color) %>
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="well">
+        <%= f.input(:item_columns) %>
+        <%= f.input(:item_height) %>
+        <%= f.input(:item_width) %>
+        <%= f.input(:file_type, collection: [['PNG', :png], ['SVG', :svg]]) %>
       </div>
     </div>
   </div>

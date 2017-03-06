@@ -57,20 +57,27 @@ class ChartsController < ApplicationController
 
 
   def chart_params
-    params.require(:chart).permit(
+    result = params.require(:chart).permit(
       :title,
       :color_scheme,
       :background_color,
-      :columns,
-      :grouplabels,
       :height,
       :width,
+      :item_columns,
       :item_height,
       :item_width,
       :file_type,
       :style,
-      data_attributes: [:id, :value, :color, :label, :_destroy]
+      column_labels: [],
+      row_labels: [],
+      colors: [],
+      data: [column: []]
     )
+    # Unfuck data, strong params can't use deal with nested arrays
+    # https://github.com/rails/rails/issues/23640
+    # Also use float values
+    result[:data] = result[:data].map { |_, c| c[:column].map { |v| v.present? ? v.to_f : nil  } }
+    result
   end
 
   def find_chart

@@ -1,7 +1,37 @@
 class Chart < ActiveRecord::Base
-  has_many :data
-  accepts_nested_attributes_for :data, reject_if: :all_blank, allow_destroy: true
-  validates :data, presence: true
+  serialize :data, JSON
+  serialize :row_labels, JSON
+  serialize :column_labels, JSON
+  serialize :colors, JSON
+
+  validates :data,
+            :row_labels,
+            :column_labels,
+            :colors,
+            presence: true
+
+  # validate :data_count_matches_row_labels_count,
+  #          :data_count_matches_column_labels_count,
+  validate :data_count_matches_colors_count
+
+  def data_count_matches_row_labels_count
+    if data.count != row_labels.count
+      errors.add :base, 'Data count does not match row_labels count'
+    end
+  end
+
+  def data_count_matches_column_labels_count
+    if data.first.count != column_labels.count
+      errors.add :base, 'Data column count does not match column_labels count'
+    end
+  end
+
+  def data_count_matches_colors_count
+    if data.count != colors.count
+      errors.add :base, 'Data count does not match colors count'
+    end
+  end
+
 
   def self.color_schemes
     {
@@ -16,17 +46,16 @@ class Chart < ActiveRecord::Base
     {
       title:            title,
       background_color: background_color,
-      columns:          columns,
-      grouplabels:      grouplabels.split,
       height:           height,
       width:            width,
       item_height:      item_height,
       item_width:       item_width,
+      columns:          item_columns,
       type:             file_type.to_sym,
       style:            style.to_sym,
-      colors:           data.map(&:color).any?(&:present?) ? data.map(&:color) : nil,
-      labels:           data.map(&:label),
-      data:             style.to_sym == :bar ? data.map { |datum| [datum.value] } : data.map(&:value)
+      colors:           colors,
+      # labels:           data.map(&:label),
+      data:             style.to_sym == :bar ? data : data.map(&:first)
     }.delete_if { |_key, value| value.blank? }
   end
 
