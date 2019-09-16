@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.3.1'
-gem 'rails', '4.2.7.1'
+gem 'rails', '~> 4'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
@@ -45,7 +45,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'fabrication'
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.12'
 end
 group :test do
   gem 'database_cleaner'
